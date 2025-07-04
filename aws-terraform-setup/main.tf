@@ -188,6 +188,7 @@ resource "aws_instance" "gravity-ec2-instance" {
   key_name        = aws_key_pair.gravity-key-pair.key_name
   vpc_security_group_ids = [aws_security_group.web-sg.id]
   user_data       = file("userdata.sh")
+  monitoring    = true
 
   tags = {
     Name = "gravity-ec2-instance"
