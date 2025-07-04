@@ -18,8 +18,8 @@ resource "aws_cloudwatch_metric_alarm" "gravity_cpu_alarm" {
   namespace                 = "AWS/EC2"
   period                    = 120
   statistic                 = "Average"
-  threshold                 = 80
-  alarm_description         = "Alarm when CPU exceeds 80%"
+  threshold                 = 60
+  alarm_description         = "Alarm when CPU exceeds 60%"
   dimensions = {
     instanceId = aws_instance.gravity-ec2-instance.id
   }
