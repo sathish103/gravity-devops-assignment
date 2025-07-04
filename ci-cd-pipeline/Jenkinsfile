@@ -33,7 +33,7 @@ pipeline {
                 sh '''
                     ssh -o StrictHostKeyChecking=no  $EC2_USER@$EC2_IP
                     ssh $EC2_USER@$EC2_IP "rm -rf $TARGET_DIR/*"
-                    scp -i ci-cd-pipeline/index.html $EC2_USER@$EC2_IP:$TARGET_DIR
+                    scp ci-cd-pipeline/index.html $EC2_USER@$EC2_IP:$TARGET_DIR
                     echo "Deployment complete"
                 '''
             }
