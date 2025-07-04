@@ -18,7 +18,7 @@ pipeline {
             steps {
                 echo 'Running test...'
                 sh '''
-                    if ! grep -q "Deployed via Jenkins" index.html; then
+                    if ! grep -q "Deployed via Jenkins" ci-cd-pipeline/index.html; then
                       echo "Test failed: Text not found"
                       exit 1
                     fi
@@ -33,7 +33,7 @@ pipeline {
                 sh '''
                     ssh -o StrictHostKeyChecking=no -i your-key.pem $EC2_USER@$EC2_IP
                     ssh $EC2_USER@$EC2_IP "rm -rf $TARGET_DIR/*"
-                    scp -i index.html $EC2_USER@$EC2_IP:$TARGET_DIR
+                    scp -i ci-cd-pipeline/index.html $EC2_USER@$EC2_IP:$TARGET_DIR
                     echo "Deployment complete"
                 '''
             }
