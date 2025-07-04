@@ -6,7 +6,7 @@ sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
 sudo yum upgrade
 # Add required dependencies for the jenkins package
 sudo yum install -y fontconfig java-17-amazon-corretto
-sudo yum install jenkins -y
+sudo yum install git jenkins -y
 sudo systemctl daemon-reload
 
 

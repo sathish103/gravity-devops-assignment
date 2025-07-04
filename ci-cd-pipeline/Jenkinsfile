@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Git Checkout') {
             steps {
-                git 'https://github.com/sathish103/gravity-devops-assignment.git'
+                git branch: 'main', url: 'https://github.com/sathish103/gravity-devops-assignment.git'
             }
         }
 
