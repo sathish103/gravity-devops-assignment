@@ -1,0 +1,6 @@
+# Ignore Terraform state and key files
+*.pem
+.terraform/
+.terraform.*
+terraform.tfstate
+terraform.tfstate.*

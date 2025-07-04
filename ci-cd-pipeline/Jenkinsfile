@@ -1,0 +1,49 @@
+pipeline {
+    agent any
+
+    environment {
+        EC2_USER = 'root'
+        EC2_IP = '15.207.84.11'
+        TARGET_DIR = '/usr/share/nginx/html'
+    }
+
+    stages {
+        stage('Git Checkout') {
+            steps {
+                git 'https://github.com/sathish103/gravity-devops-assignment.git'
+            }
+        }
+
+        stage('Test Code') {
+            steps {
+                echo 'Running test...'
+                sh '''
+                    if ! grep -q "Deployed via Jenkins" index.html; then
+                      echo "Test failed: Text not found"
+                      exit 1
+                    fi
+                    echo "Test passed"
+                '''
+            }
+        }
+
+        stage('Deploy to Nginx Ec2') {
+            steps {
+                echo 'Deploying to EC2...'
+                sh '''
+                    ssh -o StrictHostKeyChecking=no -i your-key.pem $EC2_USER@$EC2_IP
+                    ssh $EC2_USER@$EC2_IP "rm -rf $TARGET_DIR/*"
+                    scp -i index.html $EC2_USER@$EC2_IP:$TARGET_DIR
+                    echo "Deployment complete"
+                '''
+            }
+        }
+
+        stage('Post-Deploy Verification') {
+            steps {
+                echo 'Verifying deployment...'
+                sh 'curl -I http://$EC2_IP'
+            }
+        }
+    }
+}
